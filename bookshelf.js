@@ -123,7 +123,8 @@ const storeBook = () => {
 const createBookItemElement = (bookObject) => {
     const divBookItem = `
         <div class="book-item" id="#">
-            <img src="img/book-cover-placeholder.png" alt="placeholder">
+            <div class="book-cover">
+                <img src="img/book-cover-placeholder.png" alt="placeholder"></div>
             <div class="book-detail">
                 <h3>${bookObject.title}</h3>
                 <p>by ${bookObject.author}</p>

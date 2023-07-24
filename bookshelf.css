@@ -66,20 +66,20 @@ main>article {
 .book-item-container {
     display: flex;
     flex-flow: row wrap;
-    gap: calc((100% - (32% * 3)) / 2);
+    justify-content: space-evenly;
+}
+
+.book-cover {
+    width: 100%;
+    background-color: white;
 }
 
 .book-item {
     border: 1px solid #25a8b1;
     color: white;
     margin-bottom: 1em;
-    flex-basis: 32%;
-}
-
-.book-item:nth-child(1),
-.book-item:nth-child(2),
-.book-item:nth-child(3) {
-    margin-top: 1em;
+    flex-basis: calc(90% / 3);
+    background-color: #25a8b1;
 }
 
 .book-item h3 {
@@ -93,7 +93,6 @@ main>article {
 
 .book-detail {
     border-top: 1px solid #1AD0D1;
-    background-color: #25a8b1;
 }
 
 .book-detail p {
