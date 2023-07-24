@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 /**
- * Kejadian kustom; Tampilkan semua semua buku dari local storage di konsol peramban
+ * Kejadian kustom; Tampilkan semua buku dari local storage di konsol peramban
  */
 document.addEventListener(EVENT_STORED, () => {
     console.info(localStorage.getItem(STORAGE_KEY))
