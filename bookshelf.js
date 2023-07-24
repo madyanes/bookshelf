@@ -8,6 +8,12 @@ const books = []
  */
 document.addEventListener('DOMContentLoaded', () => {
     isStorageExist()
+
+    const bookForm = document.querySelector('form')
+    bookForm.addEventListener('submit', (e) => {
+        e.preventDefault()
+        addBook()
+    })
 })
 
 /**
@@ -49,4 +55,18 @@ const generateBookOject = (id, title, author, year, isComplete) => {
         year,
         isComplete
     }
+}
+
+
+/**
+ * Tambahkan objek buku ke dalam array dari buku
+ */
+const addBook = () => {
+    const bookTitle = document.querySelector('#title').value
+    const bookAuthor = document.querySelector('#author').value
+    const bookYear = document.querySelector('#year').value
+
+    const bookID = generateId()
+    const bookObject = generateBookOject(bookID, bookTitle, bookAuthor, bookYear, false)
+    books.push(bookObject)
 }
