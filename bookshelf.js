@@ -37,7 +37,7 @@ document.addEventListener(EVENT_RENDER, () => {
     const unreadBookElement = document.querySelector('#unread .book-item-container')
     unreadBookElement.innerHTML = ''
 
-    const readBookElement = document.querySelector('#unread .book-item-container')
+    const readBookElement = document.querySelector('#read .book-item-container')
     readBookElement.innerHTML = ''
 
     for (const book of books) {
@@ -154,7 +154,6 @@ const createBookItemElement = (bookObject) => {
 
     const buttonRead = document.createElement('button')
     buttonRead.classList.add('read')
-    buttonRead.innerText = 'Selesai Dibaca'
 
     const buttonDelete = document.createElement('button')
     buttonDelete.classList.add('delete')
@@ -176,6 +175,18 @@ const createBookItemElement = (bookObject) => {
     buttonDelete.addEventListener('click', () => {
         deleteBook(bookObject.id)
     })
+
+    if (bookObject.isComplete) {
+        buttonRead.innerText = 'Belum Selesai Dibaca'
+        buttonRead.addEventListener('click', () => {
+            // 
+        })
+    } else {
+        buttonRead.innerText = 'Selesai Dibaca'
+        buttonRead.addEventListener('click', () => {
+            markBookAsRead(bookObject.id)
+        })
+    }
 
     return divBookItem
 }
