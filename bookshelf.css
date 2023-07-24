@@ -62,3 +62,41 @@ main>article {
     padding: 1em 1em;
     margin: 0 10%;
 }
+
+.book-item-container {
+    display: flex;
+    flex-flow: row wrap;
+    gap: calc((100% - (32% * 3)) / 2);
+}
+
+.book-item {
+    border: 1px solid #25a8b1;
+    color: white;
+    margin-bottom: 1em;
+    flex-basis: 32%;
+}
+
+.book-item:nth-child(1),
+.book-item:nth-child(2),
+.book-item:nth-child(3) {
+    margin-top: 1em;
+}
+
+.book-item h3 {
+    padding: 0 1em;
+}
+
+.book-item img {
+    display: block;
+    margin: 0 auto;
+}
+
+.book-detail {
+    border-top: 1px solid #1AD0D1;
+    background-color: #25a8b1;
+}
+
+.book-detail p {
+    padding: 0 1em 0.5em 1em;
+    margin: 0;
+}
