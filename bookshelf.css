@@ -80,6 +80,7 @@ main>article {
     margin-bottom: 1em;
     flex-basis: calc(90% / 3);
     background-color: #25a8b1;
+    padding-bottom: 1em;
 }
 
 .book-item h3 {
@@ -98,4 +99,26 @@ main>article {
 .book-detail p {
     padding: 0 1em 0.5em 1em;
     margin: 0;
+}
+
+.button-actions {
+    padding: 0 1em;
+
+    display: flex;
+    justify-content: space-around;
+}
+
+.button-actions button {
+    flex-basis: calc((100% / 2) - 5%);
+
+    font-size: 1.3em;
+    border: 0.1em solid #ccc;
+}
+
+.button-actions button:first-child {
+    background-color: #b0ff1d;
+}
+
+.button-actions button:last-child {
+    background-color: #e03434;
 }

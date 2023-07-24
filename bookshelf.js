@@ -37,9 +37,15 @@ document.addEventListener(EVENT_RENDER, () => {
     const unreadBookElement = document.querySelector('#unread .book-item-container')
     unreadBookElement.innerHTML = ''
 
+    const readBookElement = document.querySelector('#unread .book-item-container')
+    readBookElement.innerHTML = ''
+
     for (const book of books) {
         const bookItemElement = createBookItemElement(book)
-        unreadBookElement.innerHTML += bookItemElement
+        if (!book.isComplete)
+            unreadBookElement.append(bookItemElement)
+        else
+            readBookElement.append(bookItemElement)
     }
 })
 
@@ -121,17 +127,55 @@ const storeBook = () => {
  * @returns Susunan elemen tentang item buku dalam bentuk string
  */
 const createBookItemElement = (bookObject) => {
-    const divBookItem = `
-        <div class="book-item" id="#">
-            <div class="book-cover">
-                <img src="img/book-cover-placeholder.png" alt="placeholder"></div>
-            <div class="book-detail">
-                <h3>${bookObject.title}</h3>
-                <p>by ${bookObject.author}</p>
-                <p>${bookObject.year}</p>
-            </div>
-        </div>
-    `
+    const divBookItem = document.createElement('div')
+    divBookItem.classList.add('book-item')
+
+    const divBookCover = document.createElement('div')
+    divBookCover.classList.add('book-cover')
+
+    const imgPlaceholder = document.createElement('img')
+    imgPlaceholder.setAttribute('src', 'img/book-cover-placeholder.png')
+    imgPlaceholder.setAttribute('alt', 'Placeholder Cover Image')
+
+    const divBookDetail = document.createElement('div')
+    divBookDetail.classList.add('book-detail')
+
+    const bookTitle = document.createElement('h3')
+    bookTitle.innerText = bookObject.title
+
+    const bookAuthor = document.createElement('p')
+    bookAuthor.innerText = bookObject.author
+
+    const bookYear = document.createElement('p')
+    bookYear.innerText = bookObject.year
+
+    const divButtonActions = document.createElement('div')
+    divButtonActions.classList.add('button-actions')
+
+    const buttonRead = document.createElement('button')
+    buttonRead.classList.add('read')
+    buttonRead.innerText = 'Selesai Dibaca'
+
+    const buttonDelete = document.createElement('button')
+    buttonDelete.classList.add('delete')
+    buttonDelete.innerText = 'Hapus'
+
+    divBookItem.append(divBookCover)
+    divBookItem.append(divBookDetail)
+    divBookItem.append(divButtonActions)
+
+    divBookCover.append(imgPlaceholder)
+
+    divBookDetail.append(bookTitle)
+    divBookDetail.append(bookAuthor)
+    divBookDetail.append(bookYear)
+
+    divButtonActions.append(buttonRead)
+    divButtonActions.append(buttonDelete)
+
+    buttonDelete.addEventListener('click', () => {
+        deleteBook(bookObject.id)
+    })
 
     return divBookItem
 }
@@ -151,4 +195,67 @@ const loadDataFromStorage = () => {
     }
 
     document.dispatchEvent(new Event(EVENT_RENDER))
+}
+
+
+/**
+ * Pencarian buku berdasarkan ID buku
+ * @param {Number} bookID ID buku
+ * @returns mengembalikan buku, jika tidak ada kembalikan `null`
+ */
+const findBook = (bookID) => {
+    for (const book of books) {
+        if (book.id === bookID) {
+            return book
+        }
+    }
+    return null
+}
+
+
+/**
+ * Tandai buku sebagai telah dibaca
+ * @param {Number} bookID ID Buku
+ * @returns undefined
+ */
+const markBookAsRead = (bookID) => {
+    const book = findBook(bookID)
+
+    if (book === null) return;
+
+    book.isComplete = true
+    document.dispatchEvent(new Event(EVENT_RENDER))
+    storeBook()
+}
+
+
+/**
+ * Hapus buku dari array dan local storage
+ * @param {Number} bookID ID buku
+ * @returns undefined
+ */
+const deleteBook = (bookID) => {
+    const book = findBookIndex(bookID)
+
+    if (book === -1) return;
+
+    books.splice(book, 1)
+    document.dispatchEvent(new Event(EVENT_RENDER))
+    storeBook()
+}
+
+
+/**
+ * Pencarian index buku di dalam array buku
+ * @param {Number} bookID ID Buku
+ * @returns mengembalikan index buku, atau -1 jika tidak ditemukan
+ */
+const findBookIndex = (bookID) => {
+    for (const index in books) {
+        if (books[index].id === bookID) {
+            return index
+        }
+    }
+
+    return -1
 }
