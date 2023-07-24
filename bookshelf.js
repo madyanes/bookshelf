@@ -176,16 +176,14 @@ const createBookItemElement = (bookObject) => {
         deleteBook(bookObject.id)
     })
 
+    buttonRead.addEventListener('click', () => {
+        markBookAsReadOrUnread(bookObject.id)
+    })
+
     if (bookObject.isComplete) {
         buttonRead.innerText = 'Belum Selesai Dibaca'
-        buttonRead.addEventListener('click', () => {
-            // 
-        })
     } else {
         buttonRead.innerText = 'Selesai Dibaca'
-        buttonRead.addEventListener('click', () => {
-            markBookAsRead(bookObject.id)
-        })
     }
 
     return divBookItem
@@ -225,16 +223,16 @@ const findBook = (bookID) => {
 
 
 /**
- * Tandai buku sebagai telah dibaca
+ * Tandai buku sebagai telah dibaca atau belum dibaca
  * @param {Number} bookID ID Buku
  * @returns undefined
  */
-const markBookAsRead = (bookID) => {
+const markBookAsReadOrUnread = (bookID) => {
     const book = findBook(bookID)
 
     if (book === null) return;
 
-    book.isComplete = true
+    book.isComplete ? book.isComplete = false : book.isComplete = true
     document.dispatchEvent(new Event(EVENT_RENDER))
     storeBook()
 }
