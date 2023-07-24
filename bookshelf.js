@@ -3,6 +3,7 @@
  */
 const books = []
 const STORAGE_KEY = 'BOOK_APP'
+const EVENT_STORED = 'stored-book'
 
 /**
  * Fungsi-fungsi yang akan dijalankan setelah dokumen HTML dimuat
@@ -16,6 +17,15 @@ document.addEventListener('DOMContentLoaded', () => {
         addBook()
     })
 })
+
+
+/**
+ * Kejadian kustom; Tampilkan semua semua buku dari local storage di konsol peramban
+ */
+document.addEventListener(EVENT_STORED, () => {
+    console.info(localStorage.getItem(STORAGE_KEY))
+})
+
 
 /**
  * Periksa apakah browser mendukung local storage
@@ -82,5 +92,6 @@ const storeBook = () => {
     if (isStorageExist()) {
         const bookArrayObjectToString = JSON.stringify(books)
         localStorage.setItem(STORAGE_KEY, bookArrayObjectToString)
+        document.dispatchEvent(new Event(EVENT_STORED))
     }
 }
