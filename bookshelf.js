@@ -2,7 +2,7 @@
  * Global variables
  */
 const books = []
-const SOTRAGE_KEY = 'BOOK_APP'
+const STORAGE_KEY = 'BOOK_APP'
 
 /**
  * Fungsi-fungsi yang akan dijalankan setelah dokumen HTML dimuat
@@ -81,6 +81,6 @@ const addBook = () => {
 const storeBook = () => {
     if (isStorageExist()) {
         const bookArrayObjectToString = JSON.stringify(books)
-        localStorage.setItem(SOTRAGE_KEY, bookArrayObjectToString)
+        localStorage.setItem(STORAGE_KEY, bookArrayObjectToString)
     }
 }
