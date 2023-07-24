@@ -246,6 +246,9 @@ const markBookAsReadOrUnread = (bookID) => {
 const deleteBook = (bookID) => {
     const book = findBookIndex(bookID)
 
+    if (!confirm(`Apakah kamu yakin menghapus buku ${books[book].title} dari aplikasi?`))
+        return;
+
     if (book === -1) return;
 
     books.splice(book, 1)
